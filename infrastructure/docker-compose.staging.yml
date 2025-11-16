@@ -64,8 +64,6 @@ services:
       dockerfile: Dockerfile
     env_file:
       - ../config/.env.frontend
-    environment:
-      - NODE_ENV=production
     depends_on:
       - backend
     ports:
