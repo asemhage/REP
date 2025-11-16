@@ -1,0 +1,44 @@
+hosting:
+  region: libya
+  candidates:
+    - name: LTT Cloud
+      notes:
+        - Tier-III data center in Tripoli
+        - Supports bare-metal and VM offerings
+        - Requires local business registration
+    - name: Libyana Business Cloud
+      notes:
+        - Managed Kubernetes option
+        - Direct fiber peering within Libya
+        - Offers 24/7 Arabic support
+    - name: Private Co-location
+      notes:
+        - Option for dedicated hardware
+        - Higher upfront CAPEX
+
+payments:
+  card_gateway:
+    candidates:
+      - name: Aman Bank Gateway
+        capabilities:
+          - VISA/Mastercard domestic processing
+          - SAR/LYD settlement
+          - Requires PCI DSS SAQ validation
+      - name: Tadawul Gateway
+        capabilities:
+          - Supports local debit network
+          - Mobile wallet integration
+          - Settlement T+1 in LYD
+  cash_management:
+    requirements:
+      - Generate booking voucher with QR to track cash handover
+      - Capture owner confirmation with timestamp (UTC) and location
+      - Weekly reconciliation report shared with finance
+  deposit_policy:
+    defaults:
+      - min_percentage: 10
+      - max_percentage: 50
+    override:
+      - allowed_per_property: true
+      - requires_admin_review_above: 40
+

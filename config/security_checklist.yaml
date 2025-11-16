@@ -1,0 +1,27 @@
+identity_access:
+  - enable_mfa_for_admin_and_investor_accounts
+  - enforce_password_rotation_every_180_days
+  - lock_account_after_5_failed_attempts
+
+data_protection:
+  - encrypt_personal_data_at_rest_using_aes_256
+  - log_and_monitor_access_to_sensitive_tables
+  - store_all_timestamps_in_utc
+  - mask_phone_numbers_in_logs
+
+network_security:
+  - enforce_https_everywhere_with_tls12_or_higher
+  - restrict_admin_portal_to_vpn_or_allowlist
+  - enable_web_application_firewall_for_public_endpoints
+
+application_security:
+  - run_static_analysis_on_backend_and_frontend_ci
+  - require_code_review_for_security_sensitive_changes
+  - add_rate_limiting_to_auth_and_booking_endpoints
+  - scan_uploaded_media_for_malware
+
+compliance:
+  - maintain_payment_gateway_compliance_docs_internally
+  - perform_quarterly_penetration_test
+  - document_kyp_process_for_owners_and_tenants
+

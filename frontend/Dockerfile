@@ -1,0 +1,20 @@
+FROM node:20-alpine AS base
+
+WORKDIR /app
+
+COPY package.json package-lock.json* pnpm-lock.yaml* yarn.lock* ./
+
+RUN if [ -f pnpm-lock.yaml ]; then \
+      npm install -g pnpm && pnpm install --frozen-lockfile; \
+    elif [ -f yarn.lock ]; then \
+      yarn install --frozen-lockfile; \
+    else \
+      npm install --legacy-peer-deps; \
+    fi
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev"]
+

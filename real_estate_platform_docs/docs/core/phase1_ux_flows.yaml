@@ -1,0 +1,84 @@
+flows:
+  property_booking:
+    title: "مسار حجز عقار"
+    actors: ["tenant", "investor"]
+    steps:
+      - id: PB-01
+        actor: tenant
+        description: "دخول الصفحة الرئيسية واختيار فلتر المدينة والتاريخ."
+      - id: PB-02
+        actor: tenant
+        description: "عرض قائمة العقارات وتحديد عقار مع مشاهدة التقويم."
+      - id: PB-03
+        actor: tenant
+        description: "إرسال طلب الحجز مع اختيار دفع عربون إلكتروني أو نقدي."
+      - id: PB-04
+        actor: system
+        description: "إجراء تحقق التوفر وإشعار المستثمر بوجود طلب جديد."
+      - id: PB-05
+        actor: investor
+        description: "مراجعة تفاصيل الطلب والرسائل الصوتية واتخاذ قرار."
+      - id: PB-06
+        actor: system
+        description: "تأكيد الحجز للمستأجر وتحديث التقويم وإرسال التعليمات."
+
+  hall_slot_booking:
+    title: "مسار حجز صالة بفترات متعددة"
+    actors: ["tenant", "investor"]
+    steps:
+      - id: HS-01
+        actor: tenant
+        description: "تحديد نوع الصالة والفترات المطلوبة (صباحي/مسائي)."
+      - id: HS-02
+        actor: system
+        description: "عرض التقويم مع الفترات المحجوزة والمتاحة لكل يوم."
+      - id: HS-03
+        actor: tenant
+        description: "إرسال الطلب مع تسجيل رسالة صوتية للملاحظات الخاصة."
+      - id: HS-04
+        actor: investor
+        description: "استعراض الطلب والفترات المطلوبة، وتعديل العربون إن لزم."
+      - id: HS-05
+        actor: system
+        description: "إرسال حالة الموافقة أو الرفض وتسجيلها في السجل."
+
+  maintenance_mode:
+    title: "مسار وضع العقار في الصيانة"
+    actors: ["investor", "admin"]
+    steps:
+      - id: MM-01
+        actor: investor
+        description: "اختيار العقار من لوحة التحكم والضغط على وضع الصيانة."
+      - id: MM-02
+        actor: investor
+        description: "تحديد مدة الصيانة وإضافة سبب."
+      - id: MM-03
+        actor: system
+        description: "تحديث حالة العقار وحجب الحجوزات خلال الفترة."
+      - id: MM-04
+        actor: admin
+        description: "استلام إشعار للمراجعة إذا تعدت المدة الحد المسموح."
+      - id: MM-05
+        actor: system
+        description: "إشعار المستأجرين المتأثرين وإتاحة خيار إعادة الجدولة."
+
+  cash_deposit_flow:
+    title: "مسار العربون النقدي"
+    actors: ["tenant", "investor", "admin"]
+    steps:
+      - id: CD-01
+        actor: tenant
+        description: "اختيار خيار الدفع النقدي للعربون في نموذج الحجز."
+      - id: CD-02
+        actor: system
+        description: "توليد قسيمة حجز برمز QR وتحديد مهلة الدفع."
+      - id: CD-03
+        actor: investor
+        description: "تأكيد استلام العربون عبر تطبيق الويب أو الجوال مع تحديد الوقت والموقع."
+      - id: CD-04
+        actor: system
+        description: "تحديث حالة الحجز وإرسال إشعار للمستأجر."
+      - id: CD-05
+        actor: admin
+        description: "مراجعة تقارير العربون النقدي أسبوعياً للمطابقة."
+

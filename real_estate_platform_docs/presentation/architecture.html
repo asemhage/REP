@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>هيكل النظام</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Cairo', sans-serif;
+        direction: rtl;
+      }
+      .slide-container {
+        width: 1280px;
+        min-height: 720px;
+        background: white;
+        color: #333333;
+      }
+      h1 {
+        font-size: 36px;
+        font-weight: 700;
+        color: #1e3a8a;
+      }
+      h2 {
+        font-size: 24px;
+        font-weight: 600;
+        color: #1e3a8a;
+      }
+      .component-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1e3a8a;
+      }
+      .component-desc {
+        font-size: 16px;
+        color: #333333;
+      }
+      .highlight {
+        color: #f59e0b;
+        font-weight: 600;
+      }
+      .logo {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background-color: #1e3a8a;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .logo i {
+        font-size: 30px;
+        color: white;
+      }
+      .architecture-box {
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 12px;
+        background-color: #f9fafb;
+      }
+      .architecture-box i {
+        color: #1e3a8a;
+        margin-left: 10px;
+      }
+      #architecture-diagram {
+        width: 100%;
+        height: 350px;
+        background-color: #f9fafb;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container p-10 relative">
+      <div class="logo">
+        <i class="fas fa-building"></i>
+      </div>
+      
+      <h1 class="mb-4 text-center">هيكل النظام</h1>
+      
+      <div class="mb-4">
+        <div id="architecture-diagram"></div>
+      </div>
+      
+      <div class="grid grid-cols-3 gap-4">
+        <!-- Front-end Components -->
+        <div class="architecture-box">
+          <div class="component-title mb-1">
+            <i class="fas fa-desktop"></i>
+            الواجهة الأمامية
+          </div>
+          <ul class="component-desc list-disc pr-6">
+            <li>تطبيق ويب متجاوب (React.js)</li>
+            <li>تطبيق جوال أصلي (iOS/Android)</li>
+          </ul>
+        </div>
+        
+        <!-- Back-end Components -->
+        <div class="architecture-box">
+          <div class="component-title mb-1">
+            <i class="fas fa-server"></i>
+            الواجهة الخلفية
+          </div>
+          <ul class="component-desc list-disc pr-6">
+            <li>خادم التطبيق (Node.js/Express)</li>
+            <li>واجهات برمجة التطبيقات (RESTful)</li>
+          </ul>
+        </div>
+        
+        <!-- Database and Storage -->
+        <div class="architecture-box">
+          <div class="component-title mb-1">
+            <i class="fas fa-database"></i>
+            قاعدة البيانات والتخزين
+          </div>
+          <ul class="component-desc list-disc pr-6">
+            <li>قاعدة بيانات علائقية (PostgreSQL)</li>
+            <li>تخزين الملفات السحابي</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="mt-4 grid grid-cols-2 gap-4">
+        <!-- Security -->
+        <div class="architecture-box">
+          <div class="component-title mb-1">
+            <i class="fas fa-shield-alt"></i>
+            الأمان
+          </div>
+          <ul class="component-desc list-disc pr-6">
+            <li>تشفير البيانات في الراحة والحركة</li>
+            <li>حماية من هجمات الويب الشائعة</li>
+          </ul>
+        </div>
+        
+        <!-- Integration -->
+        <div class="architecture-box">
+          <div class="component-title mb-1">
+            <i class="fas fa-plug"></i>
+            التكامل
+          </div>
+          <ul class="component-desc list-disc pr-6">
+            <li>بوابات الدفع الإلكتروني</li>
+            <li>خدمات الخرائط والإشعارات</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      // Create architecture diagram using D3.js
+      const width = document.getElementById('architecture-diagram').clientWidth;
+      const height = document.getElementById('architecture-diagram').clientHeight;
+      
+      const svg = d3.select('#architecture-diagram')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height);
+      
+      // Define the layers
+      const layers = [
+        { name: 'طبقة العرض', color: '#1e3a8a', y: 50, components: ['تطبيق الويب', 'تطبيق الجوال', 'واجهة المستخدم'] },
+        { name: 'طبقة المنطق التجاري', color: '#f59e0b', y: 160, components: ['إدارة المستخدمين', 'إدارة العقارات', 'نظام الحجز', 'التقارير'] },
+        { name: 'طبقة البيانات', color: '#10b981', y: 270, components: ['قاعدة البيانات', 'تخزين الملفات', 'النسخ الاحتياطي'] }
+      ];
+      
+      // Draw the layers
+      svg.selectAll('.layer')
+        .data(layers)
+        .enter()
+        .append('rect')
+        .attr('x', 100)
+        .attr('y', d => d.y)
+        .attr('width', width - 200)
+        .attr('height', 80)
+        .attr('rx', 10)
+        .attr('ry', 10)
+        .attr('fill', d => d.color)
+        .attr('opacity', 0.8);
+      
+      // Add layer names
+      svg.selectAll('.layer-name')
+        .data(layers)
+        .enter()
+        .append('text')
+        .attr('x', width / 2)
+        .attr('y', d => d.y + 30)
+        .attr('text-anchor', 'middle')
+        .attr('fill', 'white')
+        .attr('font-size', '18px')
+        .attr('font-weight', 'bold')
+        .text(d => d.name);
+      
+      // Add components to each layer
+      layers.forEach((layer, layerIndex) => {
+        const componentWidth = (width - 220) / layer.components.length;
+        
+        svg.selectAll(`.component-${layerIndex}`)
+          .data(layer.components)
+          .enter()
+          .append('rect')
+          .attr('x', (d, i) => 110 + i * componentWidth)
+          .attr('y', layer.y + 40)
+          .attr('width', componentWidth - 10)
+          .attr('height', 30)
+          .attr('rx', 5)
+          .attr('ry', 5)
+          .attr('fill', 'white')
+          .attr('stroke', layer.color)
+          .attr('stroke-width', 2);
+        
+        svg.selectAll(`.component-text-${layerIndex}`)
+          .data(layer.components)
+          .enter()
+          .append('text')
+          .attr('x', (d, i) => 110 + i * componentWidth + (componentWidth - 10) / 2)
+          .attr('y', layer.y + 60)
+          .attr('text-anchor', 'middle')
+          .attr('fill', '#333333')
+          .attr('font-size', '14px')
+          .text(d => d);
+      });
+      
+      // Add connections between layers
+      svg.append('path')
+        .attr('d', `M${width/2},130 L${width/2},160`)
+        .attr('stroke', '#666')
+        .attr('stroke-width', 2)
+        .attr('marker-end', 'url(#arrow)');
+      
+      svg.append('path')
+        .attr('d', `M${width/2},240 L${width/2},270`)
+        .attr('stroke', '#666')
+        .attr('stroke-width', 2)
+        .attr('marker-end', 'url(#arrow)');
+      
+      // Add arrow marker definition
+      svg.append('defs').append('marker')
+        .attr('id', 'arrow')
+        .attr('viewBox', '0 -5 10 10')
+        .attr('refX', 8)
+        .attr('refY', 0)
+        .attr('markerWidth', 6)
+        .attr('markerHeight', 6)
+        .attr('orient', 'auto')
+        .append('path')
+        .attr('d', 'M0,-5L10,0L0,5')
+        .attr('fill', '#666');
+    </script>
+  </body>
+</html>
+
