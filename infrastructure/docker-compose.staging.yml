@@ -1,0 +1,84 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-realestate}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-change-me-in-production}
+      POSTGRES_DB: ${DB_NAME:-realestate}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5432:5432"  # فقط محلي، لا تعرض للإنترنت
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-realestate}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--save", "60", "1", "--loglevel", "notice"]
+    ports:
+      - "127.0.0.1:6379:6379"  # فقط محلي
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    command: sh -c "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn core.wsgi:application --bind 0.0.0.0:8000 --workers 2 --timeout 120"
+    env_file:
+      - ../config/.env.backend
+    environment:
+      - DATABASE_URL=postgres://${DB_USER:-realestate}:${DB_PASSWORD:-change-me-in-production}@db:5432/${DB_NAME:-realestate}
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../backend:/app
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    env_file:
+      - ../config/.env.frontend
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  db_data:
+  static_volume:
+  media_volume:
+

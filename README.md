@@ -70,6 +70,33 @@ flutter run -d windows  # أو المحاكي
 docker-compose -f infrastructure/docker-compose.yml up
 ```
 
+## 🚀 النشر التجريبي
+
+للنشر على بيئة تجريبية (Staging) للاختبار:
+
+### النشر السريع:
+```bash
+# Windows
+.\scripts\deploy_staging.ps1
+
+# Linux/Mac
+./scripts/deploy_staging.sh
+```
+
+### دليل النشر الكامل:
+- [دليل النشر السريع - جاهز للاستخدام](docs/deployment/DEPLOY_NOW.md) 🚀 **للنشر الفوري على Ubuntu**
+- [دليل النشر السريع - IP فقط](docs/deployment/QUICK_START_IP.md) ⚡ **للاختبار السريع**
+- [دليل النشر السريع](docs/deployment/QUICK_START.md)
+- [دليل النشر على Ubuntu](docs/deployment/ubuntu_deployment.md) ⭐
+- [دليل النشر التفصيلي](docs/deployment/staging_deployment.md)
+
+### الخيارات المتاحة:
+- ✅ النشر المحلي (Docker Compose)
+- ✅ VPS (Ubuntu/Debian)
+- ✅ Render.com (مجاني)
+- ✅ Railway.app
+- ✅ DigitalOcean App Platform
+
 ## 🔒 الأمان
 
 - JWT Authentication

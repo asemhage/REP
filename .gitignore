@@ -29,6 +29,9 @@ pnpm-debug.log*
 # Flutter / Dart
 /mobile/
 
+# Deployment documentation (excluded from sync)
+/docs/deployment/
+
 # Environment & secrets
 .env
 .env.*

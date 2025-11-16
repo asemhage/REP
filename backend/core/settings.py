@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -184,4 +185,9 @@ CELERY_TIMEZONE = TIME_ZONE
 
 # Currency / Localization
 DEFAULT_CURRENCY = os.getenv("DEFAULT_CURRENCY", "LYD")
+
+# WhiteNoise for static files
+# Use CompressedStaticFilesStorage instead of CompressedManifestStaticFilesStorage
+# to avoid manifest.json issues
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
