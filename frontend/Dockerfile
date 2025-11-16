@@ -2,15 +2,10 @@ FROM node:20-alpine AS base
 
 WORKDIR /app
 
-COPY package.json package-lock.json* pnpm-lock.yaml* yarn.lock* ./
+COPY package.json package-lock.json* ./
 
-RUN if [ -f pnpm-lock.yaml ]; then \
-      npm install -g pnpm && pnpm install --frozen-lockfile; \
-    elif [ -f yarn.lock ]; then \
-      yarn install --frozen-lockfile; \
-    else \
-      npm install; \
-    fi
+# Install dependencies (ignoring lockfile to ensure all deps are installed)
+RUN npm install
 
 COPY . .
 
